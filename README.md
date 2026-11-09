@@ -155,3 +155,4 @@ The production output will be generated in the `dist/` directory.
 ## 📄 License
 
 Private & proprietary. All rights reserved by **Apple Play School** & **Appletree Play School**, Nizamabad, Telangana.
+
