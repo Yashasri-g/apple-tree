@@ -8,7 +8,8 @@ import { EASE, Magnetic } from './motion';
 import { scrollToId } from '../lib/scroll';
 
 const LINKS = [
-  { id: 'top', label: 'Home' },
+  { id: 'tree-gateway', label: 'Campus Tree' },
+  { id: 'structure', label: 'School Structure' },
   { id: 'schools', label: 'Our Schools' },
   { id: 'learning', label: 'Learning' },
   { id: 'gallery', label: 'Gallery' },
@@ -31,11 +32,23 @@ export function Nav() {
   const [active, setActive] = useState('top');
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const isHomePage = pathname === '/';
+  const [showNav, setShowNav] = useState(!isHomePage);
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, 'change', (y) => {
     setScrolled(y > 20);
+    if (isHomePage) {
+      setShowNav(y > 350);
+    } else {
+      setShowNav(true);
+    }
   });
+
+  useEffect(() => {
+    if (!isHomePage) setShowNav(true);
+    else setShowNav(window.scrollY > 350);
+  }, [isHomePage]);
 
   useEffect(() => {
     if (pathname !== '/') { setActive(''); return; }
@@ -57,8 +70,14 @@ export function Nav() {
 
   return (
     <>
-      {/* Always Sticky & Clearly Visible Glassmorphic Header */}
-      <header className="sticky top-0 z-50 w-full px-3 pt-2 sm:px-6 sm:pt-3 transition-all duration-300">
+      {/* Sticky & Frosted Glassmorphic Header - Hidden on the initial tree entry, smoothly slides in when scrolling into content */}
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 w-full px-3 pt-2 sm:px-6 sm:pt-3 transition-all duration-500 ease-out ${
+          showNav
+            ? 'opacity-100 translate-y-0 pointer-events-auto'
+            : 'opacity-0 -translate-y-full pointer-events-none'
+        }`}
+      >
         <div className="mx-auto max-w-7xl">
           <nav
             aria-label="Primary"
@@ -73,7 +92,7 @@ export function Nav() {
               onClick={(e) => {
                 if (pathname === '/') {
                   e.preventDefault();
-                  scrollToId('top');
+                  scrollToId('tree-gateway');
                 }
               }}
               aria-label="Apple and Appletree Play Schools, home"

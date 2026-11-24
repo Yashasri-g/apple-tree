@@ -2,8 +2,6 @@ import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-route
 import { useEffect } from 'react';
 import { MotionConfig } from 'framer-motion';
 import { EnquiryProvider } from './components/EnquiryContext';
-import { Nav } from './components/Nav';
-import { Footer } from './components/Footer';
 import { Loader } from './components/Loader';
 import { Cursor } from './components/Cursor';
 import { SmoothScroll } from './components/SmoothScroll';
@@ -27,19 +25,23 @@ export default function App() {
           <ScrollTop />
           <Loader />
           <Cursor />
-          <Nav />
           <Routes>
+            {/* 🌳 First Page: Pure Tree Animation Gateway Alone */}
             <Route path="/" element={<Home />} />
+
+            {/* 🏫 Independent School Sites (Each isolated with its own logo, header, data, footer) */}
             <Route path="/schools/:slug" element={<SchoolPage />} />
-            {/* legacy URLs */}
-            <Route path="/schools" element={<Navigate to="/#schools" replace />} />
-            <Route path="/programs" element={<Navigate to="/#programs" replace />} />
-            <Route path="/gallery" element={<Navigate to="/#gallery" replace />} />
-            <Route path="/about" element={<Navigate to="/#about" replace />} />
-            <Route path="/contact" element={<Navigate to="/#enquire" replace />} />
+
+            {/* Direct navigation aliases */}
+            <Route path="/schools" element={<Navigate to="/" replace />} />
+            <Route path="/appletree" element={<Navigate to="/schools/appletree-school" replace />} />
+            <Route path="/appleschool" element={<Navigate to="/schools/apple-school-pragathi-nagar" replace />} />
+            <Route path="/programs" element={<Navigate to="/schools/appletree-school" replace />} />
+            <Route path="/gallery" element={<Navigate to="/schools/appletree-school" replace />} />
+            <Route path="/about" element={<Navigate to="/schools/appletree-school" replace />} />
+            <Route path="/contact" element={<Navigate to="/schools/appletree-school" replace />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
-          <Footer />
           <EnquiryModal />
         </BrowserRouter>
       </EnquiryProvider>

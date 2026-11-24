@@ -65,25 +65,35 @@ apple-tree/
 │   └── sitemap.xml
 ├── src/
 │   ├── components/
+│   │   ├── tree/
+│   │   │   ├── TreeGatewayExperience.tsx   # Master tree entry gateway & campus selector
+│   │   │   ├── TreeCanvas.tsx              # Custom SVG living tree with organic roots, trunk & breeze canopy
+│   │   │   ├── CampusApple.tsx             # Interactive glowing apples with breeze sway & hover preview cards
+│   │   │   ├── TreeTrunkBrain.tsx          # Central brain neural core with illumination transition
+│   │   │   ├── TreeAtmosphere.tsx          # Warm sunlight, soft radiance & floating ambient pollen particles
+│   │   │   └── ComingSoonModal.tsx         # Accessible modal for future expansion branches
 │   │   ├── sections/
-│   │   │   ├── Hero.tsx                    # Minimal editorial hero with 13-yr heritage badge
+│   │   │   ├── Hero.tsx                    # Minimal editorial hero with 13-yr heritage badge & interactive growth toggle
+│   │   │   ├── SchoolStructure.tsx         # Comprehensive school structure (Roots, Trunk/Main Brain, Branches) & classes
 │   │   │   ├── Schools.tsx                 # Dual campus presentation (Tree to Apple)
 │   │   │   ├── Learning.tsx                # Play-based learning interactive explorer
 │   │   │   ├── Programs.tsx                # Age stage milestones (Playgroup - UKG)
 │   │   │   ├── Gallery.tsx                 # Bento photo grid & modal Lightbox
 │   │   │   ├── About.tsx                   # 13-year story & core educational pillars
 │   │   │   └── Enquire.tsx                 # Admission enquiry card & contact details
+│   │   ├── SeedToTreeInteractive.tsx       # Embedded interactive Seed-to-Tree micro-engine
 │   │   ├── Cursor.tsx                      # Subtle custom cursor
 │   │   ├── EnquiryContext.tsx              # Modal & campus selection state
 │   │   ├── EnquiryForm.tsx                 # Form component with validation
 │   │   ├── EnquiryModal.tsx                # Overlay enquiry dialog
 │   │   ├── Footer.tsx                      # Architectural dark footer with verified maps & hours
-│   │   ├── Loader.tsx                      # Minimal entry reveal
-│   │   ├── Logo.tsx                        # Large, dual-brand header logo component
-│   │   ├── Nav.tsx                         # Always-sticky glassmorphic header
+│   │   ├── Loader.tsx                      # Minimal entry splash coordinator
+│   │   ├── Logo.tsx                        # Large, dual-brand header logo component with micro-animations
+│   │   ├── Nav.tsx                         # Always-sticky glassmorphic header with quick anchors
 │   │   ├── Shapes.tsx                      # SVG graphic marks
 │   │   └── motion.tsx                      # Reusable motion & tilt utilities
 │   ├── data/
+│   │   ├── campuses.ts                     # Scalable campus dataset (active & future branches, coordinates)
 │   │   └── site.ts                         # Single source of truth for all school data & copy
 │   ├── lib/
 │   │   ├── scroll.ts                       # Lenis smooth scroll manager

@@ -82,3 +82,7 @@
   .bob, .spin-slow { animation: none; }
   * { scroll-behavior: auto !important; }
 }
+
+@keyframes tree-twinkle { 0%,100% { opacity: var(--lo, .35); } 50% { opacity: var(--hi, .9); } }
+.tree-twinkle { animation: tree-twinkle var(--dur, 6s) ease-in-out var(--del, 0s) infinite; }
+@media (prefers-reduced-motion: reduce) { .tree-twinkle { animation: none; } }

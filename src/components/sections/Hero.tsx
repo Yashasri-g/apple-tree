@@ -1,10 +1,11 @@
-import { useRef } from 'react';
+import { useState, useRef } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
-import { ArrowDownRight, ArrowUpRight, MapPin, Award } from 'lucide-react';
+import { ArrowDownRight, ArrowUpRight, MapPin, Award, Sparkles, Image as ImageIcon } from 'lucide-react';
 import { photo, photoAlt } from '../../data/site';
 import { EASE, Magnetic, SplitWords, Tilt } from '../motion';
 import { useGo } from '../Nav';
 import { INTRO_DELAY } from '../Loader';
+import { SeedToTreeInteractive } from '../SeedToTreeInteractive';
 
 const D = INTRO_DELAY - 2;
 
@@ -12,9 +13,10 @@ export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const go = useGo();
   const reduce = useReducedMotion();
+  const [rightView, setRightView] = useState<'tree' | 'photo'>('tree');
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
-  const imgY = useTransform(scrollYProgress, [0, 1], [0, 60]);
-  const textY = useTransform(scrollYProgress, [0, 1], [0, -40]);
+  const imgY = useTransform(scrollYProgress, [0, 1], [0, 40]);
+  const textY = useTransform(scrollYProgress, [0, 1], [0, -30]);
 
   return (
     <section id="top" ref={ref} className="relative overflow-hidden pt-6 pb-8 sm:pt-8 sm:pb-12">
@@ -137,31 +139,68 @@ export function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Right Column: Clean, Pristine Photo Card without clutter */}
+          {/* Right Column: Interactive Seed-to-Tree Experience / Campus Photography */}
           <div className="relative lg:col-span-5">
-            <motion.div style={{ y: reduce ? 0 : imgY }}>
-              <Tilt max={5}>
-                <div className="relative overflow-hidden rounded-[2rem] shadow-glass border-4 border-white bg-cream aspect-[4/5] sm:aspect-[4/5]">
-                  <img
-                    src={photo('play', 1000, 1250)}
-                    alt={photoAlt('play')}
-                    fetchPriority="high"
-                    className="graded h-full w-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent pointer-events-none" />
+            
+            {/* View Switcher Pills */}
+            <div className="mb-3 flex items-center justify-between">
+              <span className="text-xs font-bold uppercase tracking-wider text-leaf-deep">
+                {rightView === 'tree' ? '🌱 Interactive Growth Model' : '📸 Campus Moments'}
+              </span>
 
-                  {/* Clean bottom glass pill */}
-                  <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
-                    <div className="glass px-3.5 py-1.5 rounded-full text-xs font-semibold text-ink flex items-center gap-1.5 shadow-sm">
-                      <MapPin className="h-3.5 w-3.5 text-wm" />
-                      <span>Two Campuses in Nizamabad</span>
+              <div className="flex items-center gap-1 rounded-full bg-white/90 p-1 border border-ink/10 shadow-2xs">
+                <button
+                  onClick={() => setRightView('tree')}
+                  className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold transition-all ${
+                    rightView === 'tree'
+                      ? 'bg-ink text-cream shadow-xs'
+                      : 'text-ink-soft hover:text-ink'
+                  }`}
+                >
+                  <Sparkles className="h-3 w-3 text-wm" />
+                  <span>Seed-to-Tree</span>
+                </button>
+                <button
+                  onClick={() => setRightView('photo')}
+                  className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold transition-all ${
+                    rightView === 'photo'
+                      ? 'bg-ink text-cream shadow-xs'
+                      : 'text-ink-soft hover:text-ink'
+                  }`}
+                >
+                  <ImageIcon className="h-3 w-3 text-leaf" />
+                  <span>Photos</span>
+                </button>
+              </div>
+            </div>
+
+            <motion.div style={{ y: reduce ? 0 : imgY }}>
+              {rightView === 'tree' ? (
+                <SeedToTreeInteractive />
+              ) : (
+                <Tilt max={5}>
+                  <div className="relative overflow-hidden rounded-[2rem] shadow-glass border-4 border-white bg-cream aspect-[4/5] sm:aspect-[4/5]">
+                    <img
+                      src={photo('play', 1000, 1250)}
+                      alt={photoAlt('play')}
+                      fetchPriority="high"
+                      className="graded h-full w-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent pointer-events-none" />
+
+                    {/* Clean bottom glass pill */}
+                    <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                      <div className="glass px-3.5 py-1.5 rounded-full text-xs font-semibold text-ink flex items-center gap-1.5 shadow-sm">
+                        <MapPin className="h-3.5 w-3.5 text-wm" />
+                        <span>Two Campuses in Nizamabad</span>
+                      </div>
+                      <span className="glass px-3 py-1.5 rounded-full text-xs font-bold text-leaf-deep">
+                        4.6★ Rated
+                      </span>
                     </div>
-                    <span className="glass px-3 py-1.5 rounded-full text-xs font-bold text-leaf-deep">
-                      4.6★ Rated
-                    </span>
                   </div>
-                </div>
-              </Tilt>
+                </Tilt>
+              )}
             </motion.div>
           </div>
 
